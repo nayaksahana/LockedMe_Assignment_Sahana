@@ -2,6 +2,7 @@ package com.lockedme.sahana;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuOptions {
@@ -14,29 +15,35 @@ public class MenuOptions {
 	public  void displayMenu() throws IOException {
 		
 		do{
-		System.out.println("Please select your option from the list");
-		System.out.println("1. Display file names in ascending order");
-		System.out.println("2. File manipulation options");
-		System.out.println("3. Exit");
-		
-		menu = new Scanner(System.in);
-		input = menu.nextInt();
-		
-		switch(input){
-			case 1: operations.displayFilesInAscending();
-					break;
-					
-			case 2: displaySubMenu();
-					break;
-					
-			case 3: System.out.println("Closing the application");
-					System.out.println("Application closed");
-					System.exit(0);
-					
-			default: System.out.println("Please enter valid input");
-		}
-		
-	}while(true);
+			System.out.println("Please select your option from the list");
+			System.out.println("1. Display file names in ascending order");
+			System.out.println("2. File manipulation options");
+			System.out.println("3. Exit");
+			
+			menu = new Scanner(System.in);
+			
+			try{
+				input = menu.nextInt();
+			
+				switch(input){
+					case 1: operations.displayFilesInAscending();
+							break;
+						
+					case 2: displaySubMenu();
+							break;
+						
+					case 3: System.out.println("Closing the application");
+							System.out.println("Application closed");
+							System.exit(0);
+						
+					default: System.out.println("Please enter valid input");
+				}
+			}
+			catch(InputMismatchException e){
+				System.out.println("Enter only numerical values from list");
+			}
+			
+		}while(true);
 }
 	
 	public void displaySubMenu() throws IOException {
@@ -65,6 +72,6 @@ public class MenuOptions {
 				 default: System.out.println("Please select valid option");
 				 			displaySubMenu();
 				 			break;
-			 }
+			}
 	}
 }
